@@ -3,6 +3,7 @@ package org.upsam.civicrm.test.fake;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.upsam.civicrm.activity.model.ListActivtiesSummary;
 import org.upsam.civicrm.contact.model.address.ListAddresses;
 import org.upsam.civicrm.contact.model.constant.Constant;
 import org.upsam.civicrm.contact.model.contact.Contact;
@@ -15,6 +16,7 @@ import org.upsam.civicrm.contact.model.custom.ListCustomFields;
 import org.upsam.civicrm.contact.model.custom.ListCustomValues;
 import org.upsam.civicrm.contact.model.email.Email;
 import org.upsam.civicrm.contact.model.email.ListEmails;
+import org.upsam.civicrm.contact.model.groups.ListGroups;
 import org.upsam.civicrm.contact.model.lang.PreferredLanguage;
 import org.upsam.civicrm.contact.model.tags.ListTags;
 import org.upsam.civicrm.contact.model.tags.Tag;
@@ -22,8 +24,6 @@ import org.upsam.civicrm.contact.model.telephone.ListPhones;
 import org.upsam.civicrm.contact.model.telephone.Phone;
 import org.upsam.civicrm.dagger.di.CiviCRMSpiceRequest;
 import org.upsam.civicrm.rest.req.CiviCRMContactRequestBuilder;
-
-import android.content.Context;
 
 public class CiviCRMContactRequestBuilderFake implements
 		CiviCRMContactRequestBuilder {
@@ -39,13 +39,6 @@ public class CiviCRMContactRequestBuilderFake implements
 	@Override
 	public CiviCRMSpiceRequest<ListEmails> requestEmailsByContactId(
 			int contactId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CiviCRMSpiceRequest<ListPhones> requestPhonesByContactId(
-			Context ctx, int contactId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -194,6 +187,26 @@ public class CiviCRMContactRequestBuilderFake implements
 			}
 
 		};
+	}
+
+	@Override
+	public CiviCRMSpiceRequest<ListPhones> requestPhonesByContactId(
+			int contactId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CiviCRMSpiceRequest<ListGroups> requestGroupByContactId(int contactId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CiviCRMSpiceRequest<ListActivtiesSummary> requestActivitiesForContact(
+			int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
