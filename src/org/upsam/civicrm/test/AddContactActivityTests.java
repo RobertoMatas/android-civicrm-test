@@ -11,6 +11,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.upsam.civicrm.test.fake.CiviCRMContactRequestBuilderFake.CONTACT_CREATED_ID;
 
 import javax.inject.Inject;
@@ -130,6 +131,7 @@ public class AddContactActivityTests extends
 		this.button.performClick();
 
 		verify(validator).isValidName(NO_INPUT);
+		verifyNoMoreInteractions(validator);
 	}
 
 	public void testAllValidationAreExecutedWhenNameIsIntroduced() {
@@ -217,7 +219,7 @@ public class AddContactActivityTests extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public void testWhenAllInputThreeRequestAreSended() {
+	public void testWhenAllInputIntroducedThreeRequestAreSended() {
 		this.contactNameTextView.setText(TEXT_NAME);
 		this.contactEmailTextView.setText(TEXT_EMAIL);
 		this.contactPhoneTextView.setText(TEXT_PHONE);
