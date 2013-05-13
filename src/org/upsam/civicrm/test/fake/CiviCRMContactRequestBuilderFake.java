@@ -9,6 +9,7 @@ import org.upsam.civicrm.contact.model.constant.Constant;
 import org.upsam.civicrm.contact.model.contact.Contact;
 import org.upsam.civicrm.contact.model.contact.ContactSummary;
 import org.upsam.civicrm.contact.model.contact.ContactType;
+import org.upsam.civicrm.contact.model.contact.Individual;
 import org.upsam.civicrm.contact.model.contact.ListContactType;
 import org.upsam.civicrm.contact.model.contact.ListContacts;
 import org.upsam.civicrm.contact.model.custom.HumanReadableValue;
@@ -28,26 +29,68 @@ import org.upsam.civicrm.rest.req.CiviCRMContactRequestBuilder;
 public class CiviCRMContactRequestBuilderFake implements
 		CiviCRMContactRequestBuilder {
 
+	private static final int CONTACT_ID = 1;
 	public static final int CONTACT_CREATED_ID = 100;
 
 	@Override
 	public CiviCRMSpiceRequest<Contact> requestContactById(int contactId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new CiviCRMAsyncRequestFake<Contact>(Contact.class) {
+
+			@Override
+			public Contact loadDataFromNetwork() throws Exception {
+				Contact contact = new Individual();
+				contact.setId(CONTACT_ID);
+				contact.setName("Test Name");
+				contact.setDoNotEmail('1');
+				contact.setDoNotPhone('1');
+				contact.setBirthDate("10-10-1951 00:00:00");
+				contact.setIsDeceased('1');
+				contact.setDeceasedDate("10-10-2013 00:00:00");
+				contact.setGender("Male");
+				return contact;
+			}
+			
+		};
 	}
 
 	@Override
 	public CiviCRMSpiceRequest<ListEmails> requestEmailsByContactId(
 			int contactId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new CiviCRMAsyncRequestFake<ListEmails>(ListEmails.class) {
+
+			@Override
+			public ListEmails loadDataFromNetwork() throws Exception {
+				ListEmails listEmails = new ListEmails();
+				List<Email> emails = new ArrayList<Email>(2);
+				Email email = new Email();
+				email.setEmail("test1@email.com");
+				email.setPrimaryStr("1");
+				emails.add(email);
+				email = new Email();
+				email.setEmail("test2@email.com");
+				email.setPrimaryStr("0");
+				emails.add(email);
+				listEmails.setValues(emails);
+				return listEmails;
+			}
+			
+		};
 	}
 
 	@Override
 	public CiviCRMSpiceRequest<PreferredLanguage> requestCommunicationPreferencesByContactId(
 			int contactId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new CiviCRMAsyncRequestFake<PreferredLanguage>(PreferredLanguage.class){
+
+			@Override
+			public PreferredLanguage loadDataFromNetwork() throws Exception {
+				PreferredLanguage pl = new PreferredLanguage();
+				pl.setContactId(CONTACT_ID);
+				pl.setPreferredLanguage("es_ES");
+				return pl;
+			}
+			
+		};
 	}
 
 	@Override
@@ -192,8 +235,25 @@ public class CiviCRMContactRequestBuilderFake implements
 	@Override
 	public CiviCRMSpiceRequest<ListPhones> requestPhonesByContactId(
 			int contactId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new CiviCRMAsyncRequestFake<ListPhones>(ListPhones.class) {
+
+			@Override
+			public ListPhones loadDataFromNetwork() throws Exception {
+				ListPhones listPhones = new ListPhones();
+				List<Phone> phones = new ArrayList<Phone>(2);
+				Phone phone = new Phone();
+				phone.setPhone("66589512");
+				phone.setPrimaryStr("1");
+				phones.add(phone);
+				phone = new Phone();
+				phone.setPhone("6549846");
+				phone.setPrimaryStr("0");
+				phones.add(phone);
+				listPhones.setValues(phones);
+				return listPhones;
+			}
+			
+		};
 	}
 
 	@Override

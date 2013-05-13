@@ -36,7 +36,20 @@ public abstract class AbstractCiviCRMTestCase<T extends Activity> extends
 		objectGraph.inject(this);
 		Intent intent = new Intent(getInstrumentation().getTargetContext(),
 				activityClass);
+		Extra extra = getExtraForIntent();
+		if (extra != null) {
+			intent.putExtra(extra.key, extra.data);
+		}
 		mActivity = startActivity(intent, null, null);
+	}
+
+	/**
+	 * Subclasses must override if extra data for Intent are needed
+	 * 
+	 * @return
+	 */
+	protected Extra getExtraForIntent() {
+		return null;
 	}
 
 	@Override
